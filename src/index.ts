@@ -1,4 +1,4 @@
-import { createBlockForWorkerInstance } from './createBlockForWorkerInstance'
+import { blockForWorkerManager } from './blockForWorkerManager'
 import { blockFor } from './blockFor'
 
 import './styles.css'
@@ -43,15 +43,15 @@ export function render() {
 }
 
 function startDemo() {
-  const frameDuration = 16
+  const frameDuration = 17
   const blockDuration = 2000
   const blockInterval = 4000
 
   void (function rotate(deg = 0) {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       box.style.transform = `rotate(${deg}deg)`
       rotate(deg + 1)
-    }, frameDuration)
+    })
   })()
 
   void (function interval() {
@@ -65,9 +65,15 @@ function startDemo() {
 
       setTimeout(async () => {
         if (useWorker.checked) {
-          const worker = createBlockForWorkerInstance()
+          const [
+            requestInstance,
+            releaseInstance,
+            getBlockForWorkerInstance
+          ] = blockForWorkerManager()
+          requestInstance()
+          const worker = getBlockForWorkerInstance()
           await worker.blockForInWebWorker(blockDuration)
-          worker.terminate()
+          releaseInstance()
         } else {
           blockFor(blockDuration)
         }
