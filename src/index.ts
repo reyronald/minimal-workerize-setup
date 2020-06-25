@@ -9,9 +9,7 @@ import './styles.css'
 // TODO mocha test setup
 // TODO clean tsconfig
 // TODO add author to packagejson
-
-declare var box: HTMLDivElement
-declare var useWorker: HTMLInputElement
+// TODO tests: use mocks/sinons to make sure the web worker is being called successfully
 
 export function render() {
   const element = document.createElement('main')
@@ -47,6 +45,9 @@ function startDemo() {
   const blockDuration = 2000
   const blockInterval = 4000
 
+  const box = document.getElementById('box') as HTMLDivElement
+  const useWorker = document.getElementById('useWorker') as HTMLInputElement
+
   void (function rotate(deg = 0) {
     requestAnimationFrame(() => {
       box.style.transform = `rotate(${deg}deg)`
@@ -68,12 +69,14 @@ function startDemo() {
           const [
             requestInstance,
             releaseInstance,
-            getBlockForWorkerInstance
+            getBlockForWorkerInstance,
           ] = blockForWorkerManager()
+          console.log('Requesting Web Worker')
           requestInstance()
           const worker = getBlockForWorkerInstance()
           await worker.blockForInWebWorker(blockDuration)
           releaseInstance()
+          console.log('Releasing Web Worker')
         } else {
           blockFor(blockDuration)
         }
