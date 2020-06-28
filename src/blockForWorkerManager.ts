@@ -1,6 +1,6 @@
 import { createWorkerizeInstance, Workerized } from './createWorkerizeInstance'
 
-// @ts-ignore This is goign through the `workerize-loader`
+// @ts-ignore This is going through the `workerize-loader`
 import blockForInWebWorkerFactory from './blockForInWebWorker.worker'
 import * as blockForInWebWorkerFns from './blockForInWebWorker.worker'
 

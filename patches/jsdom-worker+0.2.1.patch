@@ -1,0 +1,139 @@
+diff --git a/node_modules/jsdom-worker/dist/jsdom-worker.js b/node_modules/jsdom-worker/dist/jsdom-worker.js
+index ad2481e..d4eaa62 100644
+--- a/node_modules/jsdom-worker/dist/jsdom-worker.js
++++ b/node_modules/jsdom-worker/dist/jsdom-worker.js
+@@ -1,2 +1,133 @@
+-var e,t=require("node-fetch"),o=(e=t)&&"object"==typeof e&&"default"in e?e.default:e;function n(e){return e=e||Object.create(null),{on:function(t,o){(e[t]||(e[t]=[])).push(o)},off:function(t,o){e[t]&&e[t].splice(e[t].indexOf(o)>>>0,1)},emit:function(t,o){(e[t]||[]).slice().map(function(e){e(o)}),(e["*"]||[]).slice().map(function(e){e(t,o)})}}}var l,a=(function(e,t){t=e.exports=function(){for(var e,o="",n=0;n<32;n++)e=16*t.random()|0,n>4&&n<21&&!(n%4)&&(o+="-"),o+=(12===n?4:16===n?3&e|8:e).toString(16);return o};var o=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;t.isUUID=function(e){return o.test(e)},t.random=function(){return Math.random()}}(l={exports:{}},l.exports),l.exports);if(global.URL||(global.URL={}),global.URL.$$objects||(global.URL.$$objects=new Map,global.URL.createObjectURL=e=>{let t=a();return global.URL.$$objects[t]=e,"blob:http://localhost/"+t}),!global.fetch||!global.fetch.jsdomWorker){let e=global.fetch||o;global.fetch=function(o,n){return o.match(/^blob:/)?new Promise((e,n)=>{let l=new FileReader;l.onload=()=>{let o=global.Response||t.Response;e(new o(l.result,{status:200,statusText:"OK"}))},l.onerror=()=>{n(l.error)};let a=o.match(/[^/]+$/)[0];l.readAsText(global.URL.$$objects[a])}):e.call(this,o,n)},global.fetch.jsdomWorker=!0}function s(e){this.type=e}global.document||(global.document={}),s.prototype.initEvent=Object,global.document.createEvent||(global.document.createEvent=function(e){return new(global[e]||s)(e)}),global.Worker=function(e){let t,o=[],l=n(),a=n(),s={onmessage:null,dispatchEvent:l.emit,addEventListener:l.on,removeEventListener:l.off,postMessage(e){a.emit("message",{data:e})},fetch:global.fetch,importScripts(){}};l.on("message",e=>{let o=s.onmessage||t("onmessage");o&&o.call(s,e)}),this.addEventListener=a.on,this.removeEventListener=a.off,this.dispatchEvent=a.emit,a.on("message",e=>{this.onmessage&&this.onmessage(e)}),this.postMessage=e=>{null!=o?o.push(e):l.emit("message",{data:e})},this.terminate=()=>{throw Error("Not Supported")},global.fetch(e).then(e=>e.text()).then(e=>{let n="var self=this,global=self";for(let e in s)n+=`,${e}=self.${e}`;t=Function(n+";\n"+e+'\nreturn function(n){return n=="onmessage"?onmessage:null;}').call(s);let l=o;o=null,l.forEach(this.postMessage)}).catch(e=>{a.emit("error",e),console.error(e)})};
++var e,
++  t = require("node-fetch"),
++  o = (e = t) && "object" == typeof e && "default" in e ? e.default : e;
++function n(e) {
++  return (
++    (e = e || Object.create(null)),
++    {
++      on: function (t, o) {
++        (e[t] || (e[t] = [])).push(o);
++      },
++      off: function (t, o) {
++        e[t] && e[t].splice(e[t].indexOf(o) >>> 0, 1);
++      },
++      emit: function (t, o) {
++        (e[t] || []).slice().map(function (e) {
++          e(o);
++        }),
++          (e["*"] || []).slice().map(function (e) {
++            e(t, o);
++          });
++      },
++    }
++  );
++}
++var l,
++  a =
++    ((function (e, t) {
++      t = e.exports = function () {
++        for (var e, o = "", n = 0; n < 32; n++)
++          (e = (16 * t.random()) | 0),
++            n > 4 && n < 21 && !(n % 4) && (o += "-"),
++            (o += (12 === n ? 4 : 16 === n ? (3 & e) | 8 : e).toString(16));
++        return o;
++      };
++      var o = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
++      (t.isUUID = function (e) {
++        return o.test(e);
++      }),
++        (t.random = function () {
++          return Math.random();
++        });
++    })((l = { exports: {} }), l.exports),
++    l.exports);
++if (
++  (global.URL || (global.URL = {}),
++  global.URL.$$objects ||
++    ((global.URL.$$objects = new Map()),
++    (global.URL.createObjectURL = (e) => {
++      let t = a();
++      return (global.URL.$$objects[t] = e), "blob:http://localhost/" + t;
++    })),
++  !global.fetch || !global.fetch.jsdomWorker)
++) {
++  let e = global.fetch || o;
++  (global.fetch = function (o, n) {
++    return o.match(/^blob:/)
++      ? new Promise((e, n) => {
++          let l = new FileReader();
++          (l.onload = () => {
++            let o = global.Response || t.Response;
++            e(new o(l.result, { status: 200, statusText: "OK" }));
++          }),
++            (l.onerror = () => {
++              n(l.error);
++            });
++          let a = o.match(/[^/]+$/)[0];
++          l.readAsText(global.URL.$$objects[a]);
++        })
++      : e.call(this, o, n);
++  }),
++    (global.fetch.jsdomWorker = !0);
++}
++function s(e) {
++  this.type = e;
++}
++global.document || (global.document = {}),
++  (s.prototype.initEvent = Object),
++  global.document.createEvent ||
++    (global.document.createEvent = function (e) {
++      return new (global[e] || s)(e);
++    }),
++  (global.Worker = function (e) {
++    let t,
++      o = [],
++      l = n(),
++      a = n(),
++      s = {
++        onmessage: null,
++        dispatchEvent: l.emit,
++        addEventListener: l.on,
++        removeEventListener: l.off,
++        postMessage(e) {
++          a.emit("message", { data: e });
++        },
++        fetch: global.fetch,
++        importScripts() {},
++      };
++    l.on("message", (e) => {
++      let o = s.onmessage || t("onmessage");
++      o && o.call(s, e);
++    }),
++      (this.addEventListener = a.on),
++      (this.removeEventListener = a.off),
++      (this.dispatchEvent = a.emit),
++      a.on("message", (e) => {
++        this.onmessage && this.onmessage(e);
++      }),
++      (this.postMessage = (e) => {
++        null != o ? o.push(e) : l.emit("message", { data: e });
++      }),
++      (this.terminate = () => {
++        console.warn('Web Worker `.terminate()` not supported in JSDOM.')
++      }),
++      global
++        .fetch(e)
++        .then((e) => e.text())
++        .then((e) => {
++          let n = "var self=this,global=self";
++          for (let e in s) n += `,${e}=self.${e}`;
++          t = Function(
++            n +
++              ";\n" +
++              e +
++              '\nreturn function(n){return n=="onmessage"?onmessage:null;}'
++          ).call(s);
++          let l = o;
++          (o = null), l.forEach(this.postMessage);
++        })
++        .catch((e) => {
++          a.emit("error", e), console.error(e);
++        });
++  });
+ //# sourceMappingURL=jsdom-worker.js.map

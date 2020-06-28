@@ -10,6 +10,14 @@ body {
     background: #0e141b;
     color: #ddd;
   }
+
+  a {
+    color: #3ca4af;
+  }
+
+  a:visited {
+    color: #81c4f8;
+  }
 }
 
 .box {
