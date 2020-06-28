@@ -4,6 +4,8 @@ A minimal web app written in TypeScript that uses Web Workers by leveraging [`wo
 
 The goal is to demonstrate the necessary tooling set-up to make it all work, and also includes tests written in [jest](https://jestjs.io/) and [mocha](https://mochajs.org/).
 
+**See [demo online](https://reyronald.github.io/minimal-workerize-setup/).**
+
 |          No web worker          |          Using web worker           |
 | :-----------------------------: | :---------------------------------: |
 | ![no web worker][no web worker] | ![with web worker][with web worker] |
