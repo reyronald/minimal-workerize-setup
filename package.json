@@ -48,7 +48,7 @@
     "css-loader": "^3.6.0",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.0.1",
-    "jsdom": "^16.2.2",
+    "jsdom": "^16.5.0",
     "jsdom-worker": "^0.2.1",
     "mocha": "^8.0.1",
     "node-fetch": "^2.6.0",
